@@ -1,0 +1,17 @@
+<h1><%= @listing.title %></h1>
+
+<%= @listing.city %> <%= @listing.state %>
+
+<p>
+  <%= @listing.about %>
+</p>
+
+<p>
+  <%= @listing.max_guests %>
+</p>
+
+<div>
+  <h4>Host</h4>
+  <%= @listing.host.email %>
+</div>
+
