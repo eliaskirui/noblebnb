@@ -13,9 +13,9 @@
   </head>
 
   <body>
-  <% if user_signed_in? %>
-  <%= button_to "log out", destroy_user_session_path, method: :delete %>
-    <% end %>
+  <%# if user_signed_in? %>
+  <%#= button_to "log out", destroy_user_session_path, method: :delete %>
+    <%# end %>
 
 
     <div class="min-h-full">
@@ -27,6 +27,7 @@
                 <div class="flex-shrink-0">
                   <img class="block h-8 w-8" src="https://tailwindui.com/img/logos/workflow-mark-indigo-300.svg" alt="Workflow">
                 </div>
+                <% if user_signed_in? %>
                 <div class="hidden lg:block lg:ml-10">
                   <div class="flex space-x-4">
                     <!-- Current: "bg-indigo-700 text-white", Default: "text-white hover:bg-indigo-500 hover:bg-opacity-75" -->
@@ -37,6 +38,7 @@
 
                   </div>
                 </div>
+                  <% end %>
               </div>
               <div class="flex-1 px-2 flex justify-center lg:ml-6 lg:justify-end">
                 <div class="max-w-lg w-full lg:max-w-xs">
@@ -99,7 +101,13 @@
 
                       <a href="#" class="block py-2 px-4 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1"> Settings </a>
 
-                      <a href="#" class="block py-2 px-4 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2"> Sign out </a>
+                      <% if user_signed_in? %>
+                        <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "block py-2 px-4 text-sm text-gray-700" %>
+
+                        <% else %>
+                      <%= button_to "Sign in", new_user_session_path, class: "block py-2 px-4 text-sm text-gray-700" %>
+
+                    <% end %>
                     </div>
                   </div>
                 </div>

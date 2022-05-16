@@ -1,0 +1,8 @@
+
+<%= form_with(model: Photo.new, url: host_listing_photos_path) do |form| %>
+<%#= form_with(model: @photo) do |form| %>
+<%= form.file_field :file %>
+<%= form.text_field :caption %>
+
+<%= form.submit %>
+<% end %>

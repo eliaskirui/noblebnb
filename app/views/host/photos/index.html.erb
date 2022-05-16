@@ -1,4 +1,30 @@
-<div>
-  <h1 class="font-bold text-4xl">Host::Photos#index</h1>
-  <p>Find me in app/views/host/photos/index.html.erb</p>
-</div>
+<h1 class="font-bold text-4xl mb-3">Photos</h1>
+
+<%= link_to "new photo", new_host_listing_photo_path  %>
+
+<% @listing.photos.each do |photo| %>
+  <% if photo.file.attached? %>
+<%= image_tag url_for(photo.file) %>
+    <% end %>
+<% end %>
+
+
+<%#= form_with(model: @photo) do |form| %>
+  <%#= form.file_field :photos %>
+    <%#= form.text_field :caption %>
+
+  <%#= form.submit %>
+<%# end %>
+
+
+
+
+<!--<form action="<%#= host_listing_photos_path(@listing) %>" method="POST">-->
+<%#= form_with model: @listing do |form| %>
+<!--  <input type="file" name="photo[photo]" />-->
+<!--  <input type="hidden" name="authenticity_token" value="<%#= form_authenticity_token %>">-->
+<!--  <label for="caption">Caption</label>-->
+<!--  <input type="text" name="photo[caption]" id="photo[caption]" value="">-->
+<!--  <button>Upload</button>-->
+
+<%# end %>

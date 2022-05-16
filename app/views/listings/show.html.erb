@@ -9,6 +9,20 @@
 <p>
   <%= @listing.max_guests %>
 </p>
+  <% @listing.photos.each do |photo| %>
+    <%#= image_tag photo.photo.variant(resize_to_limit: [100, 100]) %>
+    <% if photo.file.attached? %>
+      <%= image_tag url_for(photo.file.variant(resize_to_limit: [100, 100]))  %>
+    <%#= image_tag url_for(photo.file.image_as_thumbnail)  %>
+  <% end %>
+  <% end %>
+
+
+<ul>
+  <% @listing.rooms.each do |room| %>
+  <li><%= room.room_type %> beds: <%= room.beds.count %></li>
+  <% end %>
+</ul>
 
 <div>
   <h4>Host</h4>
