@@ -24,6 +24,8 @@
 #  locked_at              :datetime
 #  provider               :string
 #  uid                    :string
+#  stripe_customer_id     :string
+#  name                   :string
 #
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
@@ -34,6 +36,23 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: [:google_oauth2]
 
   has_many :listings, foreign_key: :host_id
+  has_many :reservations, foreign_key: :guest_id
+
+  after_commit :maybe_create_stripe_customer, on: [:create, :update]
+
+  def maybe_create_stripe_customer
+    return if !stripe_customer_id.blank?
+
+    customer = Stripe::Customer.create(
+      email: email,
+      name: name,
+      metadata: {
+        noblebnb_id: id
+      }
+    )
+    update(stripe_customer_id: customer.id)
+  end
+
 
   def self.from_omniauth(access_token)
     user = User.where(email: access_token.info.email).first

@@ -37,7 +37,8 @@ class Host::ListingsController < ApplicationController
   end
 
   def show
-    @listing = current_user.listings.find(params[:id])
+
+    @listing = Listing.published.find(params[:id])
   end
 
   def destroy
@@ -58,7 +59,10 @@ class Host::ListingsController < ApplicationController
       :postal_code,
       :country,
       :lat,
-      :lng
+      :lng,
+      :nightly_price,
+      :cleaning_fee
+
     )
   end
 
@@ -67,7 +71,9 @@ class Host::ListingsController < ApplicationController
       :title,
       :about,
       :max_guests,
-      :status
+      :status,
+      :nightly_price,
+      :cleaning_fee
       )
   end
 end

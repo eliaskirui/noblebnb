@@ -1,4 +1,17 @@
-<h1><%= @listing.title %></h1>
+<h1 class="text-2xl font-bold mb-4"><%= @listing.title%></h1>
+
+<div>
+  Per night <%= number_to_currency(@listing.nightly_price / 100, precision: 0 )%>
+</div>
+<div>
+ Cleaning fee <%= number_to_currency(@listing.cleaning_fee / 100, precision: 0 )%>
+</div>
+
+<form action="/reservations" method="post" data-turbo="false">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type="hidden" name="reservation[listing_id" value="<%= @listing.id %>">
+  <button type="submit" class="w-32 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 font-extrabold">Reserve</button>
+</form>
 
 <%= @listing.city %> <%= @listing.state %>
 
@@ -10,10 +23,8 @@
   <%= @listing.max_guests %>
 </p>
   <% @listing.photos.each do |photo| %>
-    <%#= image_tag photo.photo.variant(resize_to_limit: [100, 100]) %>
     <% if photo.file.attached? %>
-      <%= image_tag url_for(photo.file.variant(resize_to_limit: [100, 100]))  %>
-    <%#= image_tag url_for(photo.file.image_as_thumbnail)  %>
+        <%= image_tag photo.file.variant(:thumb)  %>
   <% end %>
   <% end %>
 

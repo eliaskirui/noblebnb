@@ -9,7 +9,7 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-    <script src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials[:google][:maps] %>&libraries=places&callback=initMap" async defer data-turbolinks-eval="false"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials[:google][:maps] %>&libraries=places&callback=initMap" async defer data-turbo-eval="false"></script>
   </head>
 
   <body>
@@ -95,14 +95,14 @@
                       </button>
                     </div>
 
-                    <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                    <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none justify-center" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                       <!-- Active: "bg-gray-100", Not Active: "" -->
                       <a href="#" class="block py-2 px-4 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0"> Your Profile </a>
 
                       <a href="#" class="block py-2 px-4 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1"> Settings </a>
 
                       <% if user_signed_in? %>
-                        <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "block py-2 px-4 text-sm text-gray-700" %>
+                        <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "block py-2 px-4 text-sm text-gray-700 w-24 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green  -700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
 
                         <% else %>
                       <%= button_to "Sign in", new_user_session_path, class: "block py-2 px-4 text-sm text-gray-700" %>

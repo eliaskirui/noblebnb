@@ -102,9 +102,9 @@ GEM
     hashie (5.0.0)
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
-    image_processing (1.2.0)
-      mini_magick (~> 4.0)
-      ruby-vips (>= 2.0.10, < 3)
+    image_processing (1.12.2)
+      mini_magick (>= 4.9.5, < 5)
+      ruby-vips (>= 2.0.17, < 3)
     importmap-rails (1.0.3)
       actionpack (>= 6.0.0)
       railties (>= 6.0.0)
@@ -129,9 +129,12 @@ GEM
     mini_magick (4.11.0)
     mini_mime (1.1.2)
     minitest (5.15.0)
+    mono_logger (1.1.1)
     msgpack (1.5.1)
     multi_json (1.15.0)
     multi_xml (0.6.0)
+    mustermann (1.1.1)
+      ruby2_keywords (~> 0.0.1)
     net-imap (0.2.3)
       digest
       net-protocol
@@ -205,6 +208,8 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.4.2)
       loofah (~> 2.3)
+    rails-ujs (0.1.0)
+      railties (>= 3.1)
     railties (7.0.2.4)
       actionpack (= 7.0.2.4)
       activesupport (= 7.0.2.4)
@@ -214,14 +219,26 @@ GEM
       zeitwerk (~> 2.5)
     rake (13.0.6)
     redis (4.6.0)
+    redis-namespace (1.8.2)
+      redis (>= 3.0.4)
     reline (0.3.1)
       io-console (~> 0.5)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
+    resque (2.2.1)
+      mono_logger (~> 1.0)
+      multi_json (~> 1.0)
+      redis-namespace (~> 1.6)
+      sinatra (>= 0.9.2)
     ruby-vips (2.1.4)
       ffi (~> 1.12)
     ruby2_keywords (0.0.5)
+    sinatra (2.2.0)
+      mustermann (~> 1.0)
+      rack (~> 2.2)
+      rack-protection (= 2.2.0)
+      tilt (~> 2.0)
     spring (4.0.0)
     sprockets (4.0.3)
       concurrent-ruby (~> 1.0)
@@ -232,10 +249,12 @@ GEM
       sprockets (>= 3.0.0)
     stimulus-rails (1.0.4)
       railties (>= 6.0.0)
+    stripe (6.0.0)
     strscan (3.0.1)
     tailwindcss-rails (2.0.8-x86_64-linux)
       railties (>= 6.0.0)
     thor (1.2.1)
+    tilt (2.0.10)
     timeout (0.2.0)
     turbo-rails (1.0.1)
       actionpack (>= 6.0.0)
@@ -263,22 +282,24 @@ DEPENDENCIES
   debug
   devise
   faker
-  image_processing (= 1.2)
+  image_processing (~> 1.2)
   importmap-rails
   jbuilder
   letter_opener
   omniauth-google-oauth2 (~> 1.0, >= 1.0.1)
   omniauth-rails_csrf_protection
   pg (~> 1.1)
-  pry
   pry-rails
   puma (~> 5.0)
   rails (~> 7.0.2, >= 7.0.2.3)
+  rails-ujs (~> 0.1.0)
   redis (~> 4.0)
+  resque
   ruby-vips (~> 2.1, >= 2.1.4)
   spring
   sprockets-rails
   stimulus-rails
+  stripe (~> 6.0)
   tailwindcss-rails (~> 2.0)
   turbo-rails
   tzinfo-data

@@ -12,6 +12,7 @@ export default class extends Controller {
         'lat',
         'lng',
     ]
+
     connect() {
         console.log("Address controller is connected");
         if(window.google) {
@@ -23,12 +24,13 @@ export default class extends Controller {
         // setup autocomplete
         console.log(`Google maps is initialized and the address controller knows about it`)
         console.log(google);
-       this.autocomplete = new google.maps.places.Autocomplete(this.inputTarget, {
-           fields: ["address_components", "geometry"],
-           types: ["address"],
-       })
-        this.autocomplete.addEventListener('place_changed', this.placeSelected.bind(this))
+        this.autocomplete = new google.maps.places.Autocomplete(this.inputTarget, {
+            fields: ["address_components", "geometry"],
+            types: ["address"],
+        })
+        this.autocomplete.addListener('place_changed', this.placeSelected.bind(this))
     }
+
     placeSelected() {
         // use values from autocomplete
         const place = this.autocomplete.getPlace();
@@ -36,15 +38,16 @@ export default class extends Controller {
         if(!place.geometry) {
             return;
         }
+
         this.latTarget.value = place.geometry.location.lat();
         this.lngTarget.value = place.geometry.location.lng();
+
 
         // Get each component of the address from the place details,
         // and then fill-in the corresponding field on the form.
         // place.address_components are google.maps.GeocoderAddressComponent objects
         // which are documented at http://goo.gle/3l5i5Mr
         for (const component of place.address_components) {
-            // @ts-ignore remove once typings fixed
             const componentType = component.types[0];
 
             switch (componentType) {
