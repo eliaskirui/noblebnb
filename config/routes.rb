@@ -4,12 +4,21 @@ Rails.application.routes.draw do
   root to: 'static_pages#home'
 
   resources :listings, only: [:index, :show]
-  resources :reservations
+  resources :reservations do
+    member do
+      post '/cancel' => 'reservations#cancel'
+      end
+    end
   # resources :webhooks, only: [:create]
   post '/webhooks/:source' => 'webhooks#create'
-  # get "users/oauth/google/callback", to: "omniauth_callabacks#google_oauth2"
-  # http://localhost:3000/users/oauth/google/callback
+
   namespace :host do
+    resources :merchant_settings do
+      collection do
+        get '/connect' => 'merchant_settings#connect'
+        get '/connected' => 'merchant_settings#connected'
+      end
+    end
     resources :listings do
       resources :photos, only: [:index, :create, :destroy, :new]
       resources :rooms, only: [:index, :create, :destroy] # /host/listings/:listing_id/room/2
@@ -28,3 +37,6 @@ Rails.application.routes.draw do
 
   end
 
+
+# get "users/oauth/google/callback", to: "omniauth_callabacks#google_oauth2"
+# http://localhost:3000/users/oauth/google/callback

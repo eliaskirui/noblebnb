@@ -3,6 +3,16 @@ class ReservationsController < ApplicationController
   def index
   end
 
+  def cancel
+    @reservation = current_user.reservations.find(params[:id])
+    # Make api call to refund the payment
+    refund = Stripe::Refund.create({
+                                     payment_intent: @reservation.stripe_payment_intent_id,
+                                   })
+    @reservation.update(status: :cancelling, stripe_refund_id: refund.id )
+    redirect_to reservation_path(@reservation)
+  end
+
   def create
     @reservation = current_user.reservations.new(reservation_params)
       # create a stripe checkout session
@@ -51,6 +61,7 @@ class ReservationsController < ApplicationController
   end
 
   def show
+    @reservation = current_user.reservations.find(params[:id])
   end
 
   private
