@@ -17,6 +17,6 @@ class Bed < ApplicationRecord
     full: 2,
     queen: 3,
     king: 4,
-    california_king: 5
+    california_king: 5,
   }
 end
