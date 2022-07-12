@@ -26,6 +26,9 @@
 #  uid                    :string
 #  stripe_customer_id     :string
 #  name                   :string
+#  is_host                :boolean          default(FALSE)
+#  stripe_account_id      :string
+#  charges_enabled        :boolean          default(FALSE)
 #
 class User < ApplicationRecord
   # Include default devise modules. Others available are:

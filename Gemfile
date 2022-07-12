@@ -23,7 +23,7 @@ gem 'pry-rails'
 gem "puma", "~> 5.0"
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem "importmap-rails"
+# gem "importmap-rails"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
@@ -82,3 +82,8 @@ gem 'ruby-vips', '~> 2.1', '>= 2.1.4'
 gem 'stripe', '~> 6.0'
 gem 'rails-ujs', '~> 0.1.0'
 gem 'resque'
+
+gem 'jsbundling-rails'
+gem "validates_overlap", "~> 1.0"
+
+gem "hotwire-rails", "~> 0.1.3"
