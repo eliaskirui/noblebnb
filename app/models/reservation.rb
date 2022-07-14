@@ -20,8 +20,5 @@ class Reservation < ApplicationRecord
 
   delegate :start_date, to: :calendar_event
   delegate :end_date, to: :calendar_event
-
-  def nights
-    1
-  end
+  delegate :nights, to: :calendar_event
 end

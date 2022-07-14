@@ -20,7 +20,7 @@ class ReservationsController < ApplicationController
     @booking = BookListing.new(current_user, reservation_params)
 
     if @booking.save
-      redirect_to @booking.checkout_url, _allow_other_hosts: true, status: :see_other
+      redirect_to @booking.checkout_url, allow_other_host: true, status: :see_other
       # render json: { status: :success }
     else
       flash.now[:errors] = @booking.errors

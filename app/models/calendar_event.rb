@@ -31,7 +31,9 @@ class CalendarEvent < ApplicationRecord
     scope: :listing_id,
     message_content: 'is already booked for this date range'
   }
-
+  def nights
+    (start_date...end_date).count
+  end
 
 
 end

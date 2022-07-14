@@ -39,14 +39,16 @@ class BookListing
       allow_promotion_codes: true,
       expires_at: 1.hour.from_now.to_i,
       submit_type: 'book',
-      line_items: [{
+      line_items: [
+        {
                      price_data: {
                        unit_amount: listing.nightly_price,
                        currency: 'usd',
                        product: listing.stripe_product_id,
                      },
                      quantity: reservation.nights, # Num nights
-                   }, {
+                   },
+                   {
                      price_data: {
                        unit_amount: listing.cleaning_fee,
                        currency: 'usd',

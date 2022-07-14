@@ -38,9 +38,10 @@ class Listing < ApplicationRecord
   # has_many_attached :photos
   scope :published, -> { where(status: :published) }
 
+  after_commit :maybe_create_stripe_product, on: [:create, :update]
 
   def maybe_create_stripe_product
-    return if !stripe_product_id.balank?
+    return if !stripe_product_id.blank?
 
     product = Stripe::Product.create(
       name: title,
@@ -48,13 +49,9 @@ class Listing < ApplicationRecord
       metadata: {
         noblebnb_id: id,
       }
-
     )
     update(stripe_product_id: product.id)
   end
-
-
-
 
   def address
     "#{address_line1} #{address_line2} #{city} #{state}"
