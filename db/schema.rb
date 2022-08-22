@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_11_143056) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_22_173650) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -94,6 +94,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_11_143056) do
     t.index ["host_id"], name: "index_listings_on_host_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.string "recipient_type", null: false
+    t.bigint "recipient_id", null: false
+    t.string "type", null: false
+    t.jsonb "params"
+    t.datetime "read_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["read_at"], name: "index_notifications_on_read_at"
+    t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
+  end
+
   create_table "photos", force: :cascade do |t|
     t.bigint "listing_id", null: false
     t.string "file"
@@ -101,14 +113,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_11_143056) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["listing_id"], name: "index_photos_on_listing_id"
-  end
-
-  create_table "pictures", force: :cascade do |t|
-    t.bigint "listing_id", null: false
-    t.string "caption"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["listing_id"], name: "index_pictures_on_listing_id"
   end
 
   create_table "reservations", force: :cascade do |t|
@@ -174,7 +178,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_11_143056) do
   add_foreign_key "calendar_events", "reservations"
   add_foreign_key "listings", "users", column: "host_id"
   add_foreign_key "photos", "listings"
-  add_foreign_key "pictures", "listings"
   add_foreign_key "reservations", "listings"
   add_foreign_key "reservations", "users", column: "guest_id"
   add_foreign_key "rooms", "listings"
