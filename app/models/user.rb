@@ -40,8 +40,9 @@ class User < ApplicationRecord
 
   has_many :listings, foreign_key: :host_id
   has_many :reservations, foreign_key: :guest_id
+  has_many :host_reservations, class_name: 'Reservation', through: :listings, source: :reservations
 
-  after_commit :maybe_create_stripe_customer, on: [:create, :update]
+  after_commit :maybe_create_stripe_customer, on: %i[create update]
 
   def maybe_create_stripe_customer
     return if !stripe_customer_id.blank?

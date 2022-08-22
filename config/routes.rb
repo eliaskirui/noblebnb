@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   post '/webhooks/:source' => 'webhooks#create'
 
   namespace :host do
+    get 'reservations/show'
     resources :merchant_settings do
       collection do
         get '/connect' => 'merchant_settings#connect'
@@ -24,6 +25,7 @@ Rails.application.routes.draw do
       resources :photos, only: %i[index create destroy new]
       resources :rooms, only: %i[index create destroy] # /host/listings/:listing_id/room/2
     end
+    resources :reservations, only: [:show]
   end
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }

@@ -34,8 +34,6 @@
                     <% navigation_items.each do |item| %>
                         <%= link_to(item[:body], item[:href], class: navigation_class(item[:href]), 'aria-current': navigation_aria(item[:href])) %>
                   <% end %>
-                    <!-- Current: "bg-indigo-700 text-white", Default: "text-white hover:bg-indigo-500 hover:bg-opacity-75" -->
-
                   </div>
                 </div>
                   <% end %>
