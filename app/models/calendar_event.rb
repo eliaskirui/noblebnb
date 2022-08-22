@@ -23,12 +23,16 @@ class CalendarEvent < ApplicationRecord
   validates :start_date, comparison: { less_than: :end_date }
   # Dates must be in the future
   validates :start_date, inclusion: { in: (Date.today..Date.today + 365 + 365),
-                                      message: "must be in the future"
+                                      message: 'must be in the future'
   }
   # Dates don't overlap with other calendar events for this listing
   validates :start_date, :end_date, overlap: {
     exclude_edges: %w[start_date end_date],
     scope: :listing_id,
+    query_options: {
+      joins: 'LEFT OUTER JOIN reservations r on r.id = calendar_events.reservation_id',
+      where: 'r.status in (0, 1) or calendar_events.status = 1'
+    },
     message_content: 'is already booked for this date range'
   }
   def nights

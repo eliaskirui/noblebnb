@@ -1,21 +1,23 @@
+# frozen_string_literal: true
+
 me = User.find_or_create_by!(
-  email: 'eliaskips1@gmail.com',
-  ) do |u|
+  email: 'eliaskips1@gmail.com'
+) do |u|
   u.password = '123456'
-  end
+end
 10.times do
   listing = Listing.create(
     host: me,
-    title: Faker::Lorem.words.join(""),
+    title: Faker::Lorem.words.join(''),
     about: Faker::Lorem.paragraphs.join("\n"),
     max_guests: (1...15).to_a.sample,
     address_line1: Faker::Address.street_address,
     city: Faker::Address.city,
     state: Faker::Address.state,
     country: 'US',
-    status: [:draft, :published].sample,
+    status: %i[draft published].sample
 
-    )
+  )
 end
 
 
@@ -28,14 +30,14 @@ end
   10.times do
     listing = Listing.create(
       host: host,
-      title: Faker::Lorem.words.join(""),
+      title: Faker::Lorem.words.join(''),
       about: Faker::Lorem.paragraphs.join("\n"),
       max_guests: (1...15).to_a.sample,
       address_line1: Faker::Address.street_address,
       city: Faker::Address.city,
       state: Faker::Address.state,
       country: 'US',
-      status: [:draft, :published].sample,
+      status: %i[draft published].sample
 
     )
   end

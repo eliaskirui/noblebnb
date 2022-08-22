@@ -3,13 +3,14 @@ require 'resque/server'
 Rails.application.routes.draw do
   root to: 'static_pages#home'
 
-  resources :listings, only: [:index, :show]
+  resources :listings, only: %i[index show]
   resources :reservations do
     member do
       post '/cancel' => 'reservations#cancel'
-      end
+      get '/expire' => 'reservations#expire'
     end
-  # resources :webhooks, only: [:create]
+  end
+    # resources :webhooks, only: [:create]
   post '/webhooks/:source' => 'webhooks#create'
 
   namespace :host do
@@ -20,8 +21,8 @@ Rails.application.routes.draw do
       end
     end
     resources :listings do
-      resources :photos, only: [:index, :create, :destroy, :new]
-      resources :rooms, only: [:index, :create, :destroy] # /host/listings/:listing_id/room/2
+      resources :photos, only: %i[index create destroy new]
+      resources :rooms, only: %i[index create destroy] # /host/listings/:listing_id/room/2
     end
   end
 
@@ -30,12 +31,12 @@ Rails.application.routes.draw do
   resque_web_constraint = lambda do |request|
     current_user = request.env['warden'].user
     current_user.id == 4
-    end
+  end
   constraints resque_web_constraint do
     mount Resque::Server, at: '/jobs'
   end
 
-  end
+end
 
 
 # get "users/oauth/google/callback", to: "omniauth_callabacks#google_oauth2"

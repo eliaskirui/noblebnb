@@ -35,6 +35,7 @@ class Listing < ApplicationRecord
   has_many :rooms
   has_many :photos
   has_many :pictures
+  has_many :calendar_events
   # has_many_attached :photos
   scope :published, -> { where(status: :published) }
 

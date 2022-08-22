@@ -33,7 +33,7 @@ class BookListing
     # Create a Stripe Checkout session
     @checkout_session = Stripe::Checkout::Session.create(
       success_url: reservation_url(reservation),
-      cancel_url: cancel_reservation_url(reservation) + "?session_id={CHECKOUT_SESSION_ID}",
+      cancel_url: expire_reservation_url(reservation) + "?session_id={CHECKOUT_SESSION_ID}",
       customer: current_user.stripe_customer_id,
       mode: 'payment',
       allow_promotion_codes: true,
@@ -41,27 +41,28 @@ class BookListing
       submit_type: 'book',
       line_items: [
         {
-                     price_data: {
-                       unit_amount: listing.nightly_price,
-                       currency: 'usd',
-                       product: listing.stripe_product_id,
-                     },
-                     quantity: reservation.nights, # Num nights
-                   },
-                   {
-                     price_data: {
-                       unit_amount: listing.cleaning_fee,
-                       currency: 'usd',
-                       product: 'prod_LiDL8AkEtqhej7', # Cleaning fee product ID
-                     },
-                     quantity: 1
-                   }],
+          price_data: {
+            unit_amount: listing.nightly_price,
+            currency: 'usd',
+            product: listing.stripe_product_id
+          },
+          quantity: reservation.nights # Num nights
+        },
+        {
+          price_data: {
+            unit_amount: listing.cleaning_fee,
+            currency: 'usd',
+            product: 'prod_LiDL8AkEtqhej7' # Cleaning fee product ID
+          },
+          quantity: 1
+        }
+      ],
       metadata: {
         listing_id: listing.id,
         reservation_id: reservation.id,
         guest_id: current_user.id,
         start_date: start_date,
-        end_date: end_date,
+        end_date: end_date
       },
       payment_intent_data: {
         application_fee_amount: ((listing.cleaning_fee + listing.nightly_price) * 0.10).to_i,
@@ -74,7 +75,7 @@ class BookListing
           reservation_id: reservation.id,
           guest_id: current_user.id,
           start_date: start_date,
-          end_date: end_date,
+          end_date: end_date
         }
       }
     )
