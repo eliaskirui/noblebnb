@@ -31,15 +31,15 @@ class Listing < ApplicationRecord
   validates :title, presence: true
   validates :max_guests, numericality: { greater_than: 0, less_than_or_equal_to: 100 }
   belongs_to :host, class_name: 'User'
-  enum status: {draft: 0, published: 1, archived: 2}
+  enum status: { draft: 0, published: 1, archived: 2 }
   has_many :rooms
   has_many :photos
-  has_many :pictures
+  has_many :reservations
   has_many :calendar_events
   # has_many_attached :photos
   scope :published, -> { where(status: :published) }
 
-  after_commit :maybe_create_stripe_product, on: [:create, :update]
+  after_commit :maybe_create_stripe_product, on: %i[create update]
 
   def maybe_create_stripe_product
     return if !stripe_product_id.blank?

@@ -34,8 +34,12 @@
 import "@hotwired/turbo-rails"
 import "./controllers"
 
-
-
+window.initMap = () => {
+    console.log('initMap was called');
+    const event = new Event("MapLoaded")
+    event.initEvent("map-loaded", true,  true);
+    window.dispatchEvent(event)
+}
 
 
 
