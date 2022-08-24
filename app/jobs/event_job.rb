@@ -45,7 +45,7 @@ class EventJob < ApplicationJob
         raise "No reservation found with Checkout Session ID #{checkout_session.id}"
       end
       reservation.update(status: :booked, stripe_payment_intent_id: checkout_session.payment_intent)
-      HostReservationBookedNotification.with(reservation: reservation).deliver_later(reservation.host)
+      HostReservationBookedNotification.with(reservation: reservation, message: "New Booking #{reservation.guest.email} is coming on #{reservation.start_date}").deliver_later(reservation.host)
       GuestReservationBookedNotification.with(reservation: reservation).deliver_later(reservation.guest)
 
     when 'checkout.session.expired'
