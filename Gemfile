@@ -90,3 +90,5 @@ gem 'validates_overlap', '~> 1.0'
 gem 'hotwire-rails', '~> 0.1.3'
 
 gem "pagy", "~> 5.10"
+
+gem "noticed", "~> 1.5"

@@ -2,8 +2,10 @@
 
 <pre><%= JSON.pretty_generate(@reservation.as_json(include: :calendar_event)) %></pre>
 
+<%= link_to "Messages", messages_path(reservation_id: @reservation.id), class: "inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto" %>
+
 <form action="<%= cancel_reservation_path(@reservation) %>" method="post">
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 
-  <input type="submit" value="Cancel">
+  <input type="submit" value="Cancel", class="mt-5 inline-flex items-center justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:w-auto" >
 </form>
