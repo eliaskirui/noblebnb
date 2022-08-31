@@ -36,5 +36,6 @@ module Noblebnb
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+    Rails.application.config.active_storage.variant_processor = :vips
   end
 end
