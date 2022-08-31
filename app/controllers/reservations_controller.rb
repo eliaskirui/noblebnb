@@ -14,7 +14,7 @@ class ReservationsController < ApplicationController
     @reservation = current_user.reservations.find(params[:id])
     # Make api call to refund the payment
     refund = Stripe::Refund.create({
-                                     payment_intent: @reservation.stripe_payment_intent_id,
+                                     payment_intent: @reservation.stripe_payment_intent_id
                                    })
     @reservation.update(status: :cancelling, stripe_refund_id: refund.id )
     redirect_to reservation_path(@reservation)
@@ -25,6 +25,20 @@ class ReservationsController < ApplicationController
   end
 
   def create
+    # we need to see if the user's identity is verified
+    unless current_user.identity_verified
+      # redirect through identity verification flow!
+      verification_session = Stripe::Identity::VerificationSession.create({
+                                                                            type: 'document',
+                                                                            metadata: {
+                                                                              user_id: current_user.id
+                                                                            },
+                                                                            return_url: new_reservation_url(listing_id: reservation_params[:listing_id]),
+                                                                          })
+      redirect_to verification_session.url, allow_other_host: true, status: :see_other
+      return
+    end
+
     @booking = BookListing.new(current_user, reservation_params)
 
     if @booking.save
