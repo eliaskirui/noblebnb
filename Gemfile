@@ -15,7 +15,7 @@ gem 'omniauth-rails_csrf_protection'
 gem 'sprockets-rails'
 
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 1.1'
+gem 'pg', '~> 1.4', '>= 1.4.3'
 
 gem 'pry-rails'
 
@@ -74,6 +74,10 @@ group :development do
   gem 'letter_opener'
   gem 'annotate'
   # gem 'pry'
+end
+
+group :development do
+  gem 'pg', '~> 1.4', '>= 1.4.3'
 end
 
 
