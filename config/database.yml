@@ -81,6 +81,7 @@ test:
 #
 production:
   <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
   database: noblebnb_production
   username: noblebnb
   password: <%= ENV["NOBLEBNB_DATABASE_PASSWORD"] %>
