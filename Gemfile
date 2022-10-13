@@ -14,9 +14,6 @@ gem 'omniauth-rails_csrf_protection'
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
 
-# Use postgresql as the database for Active Record
-gem 'pg', '~> 1.4', '>= 1.4.3'
-
 gem 'pry-rails'
 
 # Use the Puma web server [https://github.com/puma/puma]
@@ -96,3 +93,5 @@ gem 'hotwire-rails', '~> 0.1.3'
 gem "pagy", "~> 5.10"
 
 gem "noticed", "~> 1.5"
+
+gem 'ransack'
