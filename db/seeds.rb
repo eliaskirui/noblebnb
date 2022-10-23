@@ -4,6 +4,7 @@ me = User.find_or_create_by!(
   email: 'eliaskips1@gmail.com'
 ) do |u|
   u.password = '123456'
+  u.confirmed_at = DateTime.now
 end
 10.times do
   listing = Listing.create(
@@ -15,7 +16,9 @@ end
     city: Faker::Address.city,
     state: Faker::Address.state,
     country: 'US',
-    status: %i[draft published].sample
+    status: %i[draft published].sample,
+    nightly_price: 12000,
+    cleaning_fee: 5000,
 
   )
 end
@@ -37,7 +40,9 @@ end
       city: Faker::Address.city,
       state: Faker::Address.state,
       country: 'US',
-      status: %i[draft published].sample
+      status: %i[draft published].sample,
+      nightly_price: 12000,
+      cleaning_fee: 5000,
 
     )
   end
