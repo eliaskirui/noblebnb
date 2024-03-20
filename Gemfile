@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.2'
+ruby '3.2.2'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem 'rails', '~> 7.0.2', '>= 7.0.2.3'
+gem 'rails', '~> 7.1.3'
 
 # Authentication
 gem 'devise'
@@ -17,8 +17,7 @@ gem 'sprockets-rails'
 gem 'pry-rails'
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem 'puma', '~> 5.0'
-
+gem 'puma', '~> 6.4', '>= 6.4.2'
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 # gem "importmap-rails"
 
@@ -77,9 +76,6 @@ group :development do
   gem 'pg', '~> 1.4', '>= 1.4.3'
 end
 
-
-gem 'tailwindcss-rails', '~> 2.0'
-
 gem 'ruby-vips', '~> 2.1', '>= 2.1.4'
 gem 'stripe', '~> 6.0'
 gem 'rails-ujs', '~> 0.1.0'
@@ -91,7 +87,8 @@ gem 'validates_overlap', '~> 1.0'
 gem 'hotwire-rails', '~> 0.1.3'
 
 gem "pagy", "~> 5.10"
-
 gem "noticed", "~> 1.5"
 
 gem 'ransack'
+
+gem "tailwindcss-rails", "~> 2.3"
