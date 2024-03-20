@@ -37,5 +37,7 @@
 
 /node_modules
 
-#/config/credentials/production.key
-#/config/credentials.yml.enc
+/.idea
+
+/config/credentials/production.key
+/config/credentials.yml.enc
